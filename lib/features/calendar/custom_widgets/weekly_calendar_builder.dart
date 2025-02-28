@@ -389,6 +389,27 @@ class WeeklyCalendarBuilder extends StatelessWidget {
             ),
           ),
         ),
+        Container(
+          color: Color(0xFFE0E9EE),
+          height: screenWidth * .15,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 15,
+              ),
+              Image.asset(
+                'assets/images/todo-list_icon.png',
+                height: 40,
+                width: 40,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text('To-Do List', style: TextStyle(fontSize: 24))
+            ],
+          ),
+        ),
+
         // Card(
         //   margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
         //   elevation: 2,

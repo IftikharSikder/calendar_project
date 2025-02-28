@@ -279,9 +279,9 @@ class MonthlyCalendarBuilder extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Card(
-          elevation: 4,
+          elevation: 0,
           child: Container(
-            height: days.length==35?screenHeight * .46:screenHeight * .53,
+            height: days.length==35?screenHeight * .4635:screenHeight * .526,
             padding: EdgeInsets.only(bottom: screenWidth * 0.03),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -386,145 +386,152 @@ class MonthlyCalendarBuilder extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth * 0.04,
                           vertical: screenWidth * 0.02),
-                      child: AnimationLimiter(
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 0,
-                            crossAxisSpacing: 0,
-                            crossAxisCount: 7,
-                            childAspectRatio: 1,
-                          ),
-                          itemCount: days.length,
-                          itemBuilder: (context, index) {
-                            return AnimationConfiguration.staggeredGrid(
-                              position: index,
-                              columnCount: 7,
-                              child: ScaleAnimation(
-                                duration: Duration(milliseconds: 700),
-                                child: FadeInAnimation(
-                                  child: GetBuilder<CalendarController>(
-                                    builder: (controller) {
-                                      final today = DateTime.now();
-                                      final day = days[index];
-                                      final isSelected =
-                                      controller.isSelectedDate(day);
-                                      final isCurrentMonth = day.month ==
-                                          controller.focusedDate.value.month;
-                                      final isSunday = index % 7 == 6;
-                                      final isSaturday = index % 7 == 5;
-                                      final isToday = day.year == today.year &&
-                                          day.month == today.month &&
-                                          day.day == today.day;
-                                      final events =
-                                      controller.getEventsForDate(day);
+                      child: Card(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        elevation: 4,
+                        child: AnimationLimiter(
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 0,
+                              crossAxisSpacing: 0,
+                              crossAxisCount: 7,
+                              childAspectRatio: 1,
+                            ),
+                            itemCount: days.length,
+                            itemBuilder: (context, index) {
+                              return AnimationConfiguration.staggeredGrid(
+                                position: index,
+                                columnCount: 7,
+                                child: ScaleAnimation(
+                                  duration: Duration(milliseconds: 700),
+                                  child: FadeInAnimation(
+                                    child: GetBuilder<CalendarController>(
+                                      builder: (controller) {
+                                        final today = DateTime.now();
+                                        final day = days[index];
+                                        final isSelected =
+                                        controller.isSelectedDate(day);
+                                        final isCurrentMonth = day.month ==
+                                            controller.focusedDate.value.month;
+                                        final isSunday = index % 7 == 6;
+                                        final isSaturday = index % 7 == 5;
+                                        final isToday = day.year == today.year &&
+                                            day.month == today.month &&
+                                            day.day == today.day;
+                                        final events =
+                                        controller.getEventsForDate(day);
 
-                                      return InkWell(
-                                        onTap: () => controller.selectDate(day),
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 2, horizontal: 5),
-                                          decoration: BoxDecoration(
-                                            border: isToday
-                                                ? Border.all(
-                                              width: 2.5,
-                                              color: primaryColor,
-                                            )
-                                                : Border.all(
-                                              width: .35,
-                                              color: Color(0xFF8F9BB3),
-                                            ),
-                                            color: isToday
-                                                ? Colors.transparent
-                                                : isSelected
-                                                ? primaryColor
-                                                : isSaturday || isSunday
-                                                ? Color(0xFFF6F7F9)
-                                                : Colors.transparent,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '${day.day}',
-                                                style: TextStyle(
-                                                  color: isToday
-                                                      ? isLightMode
-                                                      ? Colors.black
-                                                      : Colors.white
-                                                      : isSelected
-                                                      ? Theme.of(context)
-                                                      .colorScheme
-                                                      .onPrimary
-                                                      : (isSunday ||
-                                                      isSaturday) &&
-                                                      isCurrentMonth
-                                                      ? primaryColor
-                                                      : (isSunday ||
-                                                      isSaturday) &&
-                                                      !isCurrentMonth
-                                                      ? primaryColor
-                                                      .withValues(
-                                                      alpha:
-                                                      .4)
-                                                      : isCurrentMonth
-                                                      ? Theme.of(
-                                                      context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.color
-                                                      : Theme.of(
-                                                      context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.color
-                                                      ?.withOpacity(
-                                                      0.5),
-                                                  fontWeight:
-                                                  isSelected || isToday
-                                                      ? FontWeight.bold
-                                                      : FontWeight.normal,
-                                                  fontSize: screenWidth * 0.035,
-                                                ),
+                                        return InkWell(
+                                          onTap: () => controller.selectDate(day),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2, horizontal: 5),
+                                            decoration: BoxDecoration(
+                                              border: isToday
+                                                  ? Border.all(
+                                                width: 2.5,
+                                                color: primaryColor,
+                                              )
+                                                  : Border.all(
+                                                width: .35,
+                                                color: Color(0xFF8F9BB3),
                                               ),
-                                              if (events.isNotEmpty)
-                                                Column(
-                                                  children: [
-                                                    ...events.take(1).map(
-                                                          (event) {
-                                                        return Text(
-                                                          event.title,
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            color: isSelected
-                                                                ? Colors.white
-                                                                : primaryColor,
-                                                            fontSize:
-                                                            screenWidth *
-                                                                0.03,
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
+                                              color: isToday
+                                                  ? Colors.transparent
+                                                  : isSelected
+                                                  ? primaryColor
+                                                  : isSaturday || isSunday
+                                                  ? Color(0xFFF6F7F9)
+                                                  : Colors.transparent,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '${day.day}',
+                                                  style: TextStyle(
+                                                    color: isToday
+                                                        ? isLightMode
+                                                        ? Colors.black
+                                                        : Colors.white
+                                                        : isSelected
+                                                        ? Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimary
+                                                        : (isSunday ||
+                                                        isSaturday) &&
+                                                        isCurrentMonth
+                                                        ? primaryColor
+                                                        : (isSunday ||
+                                                        isSaturday) &&
+                                                        !isCurrentMonth
+                                                        ? primaryColor
+                                                        .withValues(
+                                                        alpha:
+                                                        .4)
+                                                        : isCurrentMonth
+                                                        ? Theme.of(
+                                                        context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.color
+                                                        : Theme.of(
+                                                        context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.color
+                                                        ?.withOpacity(
+                                                        0.5),
+                                                    fontWeight:
+                                                    isSelected || isToday
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                    fontSize: screenWidth * 0.035,
+                                                  ),
                                                 ),
-                                            ],
+                                                if (events.isNotEmpty)
+                                                  Column(
+                                                    children: [
+                                                      ...events.take(1).map(
+                                                            (event) {
+                                                          return Text(
+                                                            event.title,
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                            style: TextStyle(
+                                                              color: isSelected
+                                                                  ? Colors.white
+                                                                  : primaryColor,
+                                                              fontSize:
+                                                              screenWidth *
+                                                                  0.03,
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
