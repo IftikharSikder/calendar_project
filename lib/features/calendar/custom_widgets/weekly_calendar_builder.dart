@@ -13,7 +13,6 @@ class WeeklyCalendarBuilder extends StatelessWidget {
 
   Widget _buildEventList(BuildContext context, List<Event> events) {
     final isLightMode = Theme.of(context).brightness == Brightness.light;
-    final primaryColor = Theme.of(context).primaryColor;
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (events.isEmpty) {
