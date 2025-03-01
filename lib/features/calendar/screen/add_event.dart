@@ -50,6 +50,12 @@ class DateController extends GetxController {
     }
   }
 
+  var isChecked = false.obs;
+
+  void toggleCheckbox() {
+    isChecked.value = !isChecked.value;
+  }
+
 }
 
 class AddEvent extends StatelessWidget {
@@ -529,7 +535,7 @@ class AddEvent extends StatelessWidget {
             ),
           ),
         ),
-              
+
               const SizedBox(
                 height: 12,
               ),
@@ -643,7 +649,7 @@ class AddEvent extends StatelessWidget {
                               width: 0.8), // Bottom border
                         ),
                       ),
-                      child: const ListTile(
+                      child: ListTile(
                         title: Text(
                           "PRIVATELY LINK CONTACT",
                           style: TextStyle(
@@ -656,31 +662,21 @@ class AddEvent extends StatelessWidget {
                             color: Color(0xFFBA0156),
                           ),
                         ),
-                        trailing: Icon(Icons.crop_square),
-                      ),
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                              color: Color(0xFFE0E9F7),
-                              width: 0.8), // Bottom border
-                        ),
-                      ),
-                      child: const ListTile(
-                        title: Text(
-                          "PRIVATELY LINK CONTACT",
-                          style: TextStyle(
-                            color: Color(0xFF737373),
+                        //trailing: Icon(Icons.crop_square),
+                        trailing: Obx(
+                              () => InkWell(
+                            onTap: controller.toggleCheckbox,
+                            child: controller.isChecked.value
+                                ? const Icon(
+                              Icons.check_box,
+                              color: Colors.blue,
+                            )
+                                : const Icon(
+                              Icons.crop_square,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                        subtitle: Text(
-                          "Pro features",
-                          style: TextStyle(
-                            color: Color(0xFFBA0156),
-                          ),
-                        ),
-                        trailing: Icon(Icons.crop_square),
                       ),
                     ),
                     const SizedBox(
