@@ -215,14 +215,12 @@ class WeeklyCalendarBuilder extends StatelessWidget {
                 ),
                 Expanded(
                   child: Obx(() {
-                    // Calculate the start of the week based on selected date
                     final startOfWeek = calendarController.selectedDate.value
                         .subtract(Duration(
                             days:
                                 calendarController.selectedDate.value.weekday -
                                     1));
 
-                    // Generate a list of 7 days for the week
                     final daysInWeek = List.generate(
                       7,
                       (index) => startOfWeek.add(Duration(days: index)),
